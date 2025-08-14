@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PEG ホームページ">
+  <meta property="og:url" content="URLが入る">
+  <meta property="og:description" content="PEGのホームページです。">
+  <meta property="og:image" content="img/ogp.png">
+  <meta name="description" content="PEGのホームページです" />
+  <title>PEG</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+  <link href="css/ress.css" media="all" rel="stylesheet" type="text/css" />
+  <!-- キャッシュ更新用のバージョンを上げています -->
+  <link href="css/style.css?v=ham-7" media="all" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="img/icon.png" />
+  <link rel="canonical" href="URLが入る" />
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <!-- header -->
+    <header class="header">
+      <div class="container">
+        <h1 class="header-logo">
+          <a href=".">PEG</a>
+        </h1>
+
+        <!-- ハンバーガーボタン（SVGの三本線で確実に黒表示） -->
+        <button class="hamburger" id="js-hamburger" aria-controls="global-nav" aria-expanded="false" aria-label="メニューを開閉">
+          <svg class="hamburger-svg" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
+            <rect x="0" y="1"  width="28" height="3" />
+            <rect x="0" y="9"  width="28" height="3" />
+            <rect x="0" y="17" width="28" height="3" />
+          </svg>
+        </button>
+
+        <!-- 右スライドのグローバルナビ（PC/SP共通で使用） -->
+        <nav class="gnav" id="global-nav">
+          <ul class="gnav-list">
+            <li class="gnav-item"><a href="index.html#works">WORKS</a></li>
+            <li class="gnav-item"><a href="index.html#contact">SNS・CONTACT</a></li>
+            <li class="gnav-item"><a href="privacy.html">PRIVACY POLICY</a></li>
+            <li class="gnav-item"><a href="support.html">SUPPORT PAGE</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- /header -->
+
+    <main class="content">
+      <article class="article">
+        <div class="article-container">
+          <h2 class="title">Privacy Policy</h2>
+
+          <div class="article-body">
+            <h3>個人情報の収集</h3>
+            <p>本アプリは、広告配信のために Google 広告、Google AdMob を使用しています。</p>
+
+            <h3>広告について</h3>
+            <p>本アプリでは、広告配信を目的として以下の広告配信事業者がご利用者の情報を自動取得する場合がございます。取得する情報、利用目的、第三者への提供等につきましては、以下の広告配信事業者のアプリケーション・プライバシーポリシーのリンクよりご確認ください。</p>
+
+            <ul>
+              <li>
+                Google 広告に関するポリシー<br>
+                <a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener">
+                  https://policies.google.com/technologies/ads?hl=ja
+                </a>
+              </li>
+            </ul>
+
+            <hr>
+
+            <h3>Collection of Personal Information</h3>
+            <p>This application uses Google Ads and Google AdMob for the purpose of delivering advertisements.</p>
+
+            <h3>About Advertisements</h3>
+            <p>In this application, the following ad delivery companies may automatically collect user information for the purpose of delivering advertisements. For information on what data is collected, the purpose of use, and the provision to third parties, please refer to the application privacy policies of the ad delivery companies listed below.</p>
+
+            <ul>
+              <li>
+                Google Ads Privacy Policy<br>
+                <a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener">
+                  https://policies.google.com/technologies/ads?hl=ja
+                </a>
+              </li>
+            </ul>
+            
+          </div>
+
+          <div class="home-link">
+            <a href="index.html">HOME</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="copyright">&copy; PEG</div>
+    </footer>
+
+  </div>
+
+  <!-- jQuery とスクリプト -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/script.js?v=ham-7"></script>
+</body>
+</html>

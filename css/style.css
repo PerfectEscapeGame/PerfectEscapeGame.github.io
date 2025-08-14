@@ -405,3 +405,37 @@ html {
   .works-store-links img { width: 140px; }
   .home-link a { font-size: 22px; padding: 6px 14px; }
 }
+
+/* 固定ヘッダーの高さ（PC/スマホ） */
+:root { --header-offset: 73px; }
+@media (max-width: 767px) { :root { --header-offset: 57px; } }
+
+/* アンカー見出しの直前にダミーの余白を作って、ヘッダー被りを防ぐ */
+#works::before,
+#contact::before {
+  content: "";
+  display: block;
+  height: var(--header-offset);
+  margin-top: calc(-1 * var(--header-offset));
+}
+
+/* お好みで、通常の同ページ内スクロールも滑らか＋余白確保 */
+html { scroll-padding-top: var(--header-offset); scroll-behavior: smooth; }
+
+.article-body ul {
+  padding-left: 1em; /* 一文字分の字下げ */
+}
+
+.article-body li {
+  word-break: break-word; /* 長いURLがはみ出さないように折り返す */
+}
+
+.article-body a {
+  word-break: break-all;     /* 単語の途中でも折り返す */
+  overflow-wrap: anywhere;   /* できるところで折り返す */
+}
+
+.article-body hr {
+  margin-top: 1em;    /* 横線の上に1行分の余白 */
+  margin-bottom: 1em; /* 横線の下に1行分の余白 */
+}
