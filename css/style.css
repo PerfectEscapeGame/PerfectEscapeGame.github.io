@@ -54,16 +54,17 @@ img {
 .header {
   position: fixed;
   top: 0;
-  z-index: 100; /* gnav/overlay より下、ページより上 */
+  z-index: 100; /* gnavより下、ページより上 */
   width: 100%;
   background-color: #fff;
   box-shadow: 0 5px 10px -6px rgba(0,0,0,.1);
 }
 .header .container {
+  position: relative; /* ← 配置基準を固定 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px 16px;
 }
 
 .header-logo {
@@ -75,27 +76,33 @@ img {
 }
 .header-logo a { color: #333; }
 
-/* --- PC/SP共通：ハンバーガー＆スライドインナビ --- */
+/* --- ハンバーガー（フレックス配置に統一） --- */
 .hamburger {
-  display: flex; /* PCでも表示 */
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 18px;
+  position: relative;              /* z-indexを効かせる */
+  margin-left: auto;               /* 右端へ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;                     /* タップしやすい当たり判定 */
+  height: 40px;
+  padding: 0;
   background: none;
-  border: none;
+  border: 0;
   cursor: pointer;
-  position: absolute;
-  right: 20px; /* ヘッダー右端 */
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1002; /* gnav より上 */
+  z-index: 1002;
 }
-.hamburger span {
+/* 旧span線は無効化（保険） */
+.hamburger span { display: none !important; }
+
+/* SVG を常時“黒”で描画（iOSでも確実に効かせる） */
+.hamburger-svg {
+  width: 28px;
+  height: 22px;
   display: block;
-  height: 3px;
-  background: #333;
-  border-radius: 2px;
+  pointer-events: none;            /* クリックは親buttonへ */
+}
+.hamburger-svg rect {
+  fill: #333 !important;
 }
 
 /* 右からスライドインする GNAV */
@@ -113,8 +120,14 @@ img {
   flex-direction: column;
   justify-content: flex-start;
   z-index: 1001;
+
+  /* 閉じている間は当たり判定を無効化（ハンバーガーに被らないように） */
+  pointer-events: none;
 }
-.gnav.open { right: 0; }
+.gnav.open {
+  right: 0;
+  pointer-events: auto;
+}
 
 .gnav-list {
   display: flex;
@@ -124,7 +137,7 @@ img {
   margin: 0;
   padding: 0;
 }
-.gnav-item:not(:last-child) { margin-right: 0; } /* 横並び時の名残をリセット */
+.gnav-item:not(:last-child) { margin-right: 0; }
 .gnav-item a {
   position: relative;
   font-size: 20px;
@@ -135,7 +148,7 @@ img {
   letter-spacing: .05em;
   color: #333;
 }
-.gnav-item a:after { display: none; } /* 下線アニメはOFF（縦メニュー向け） */
+.gnav-item a:after { display: none; }
 
 /*--------------------------------
  メインビジュアル
@@ -182,9 +195,11 @@ img {
 .works-item:hover { opacity: .9; }
 .works-item:nth-of-type(3n) { margin-right: 0; }
 .works-img img { border: 1px solid #e6e6e6; }
-.works-name { font-size: 20px; font-weight: bold; margin-top: 8px;}
+
+.works-name { font-size: 20px; font-weight: bold; margin-top: 8px; }
 .works-name a { color: #333; text-decoration: none; display: inline-block; }
 .works-name a:hover { text-decoration: underline; }
+
 .works-info { font-size: 20px; margin-top: 5px; }
 .store-btn { height: 40px; width: auto; }
 
@@ -201,56 +216,46 @@ img {
   margin-bottom: 1.8em; /* 段落の line-height(1.8) に揃えて“1行” */
 }
 
-/* 親要素を縦並び＆中央寄せ */
+/* App / Play ボタンを縦並び＆中央寄せ（必要な場合に使用） */
 .store-links {
   display: flex;
-  flex-direction: column; /* 縦並び */
-  align-items: center;     /* 中央揃え */
-  gap: 10px;               /* 間隔 */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
-
-/* ボタン画像の幅を統一 */
 .store-links img {
-  width:160px;   /* 好きな横幅に統一 */
-  height: auto;   /* アスペクト比維持で高さ自動調整 */
-  display: block; /* 余白対策 */
+  width: 160px;
+  height: auto;
+  display: block;
 }
 
-/* 親要素を縦並び＆中央寄せ */
+/* 詳細ページのボタン群（使用している場合） */
 .works-store-links {
   display: flex;
-  flex-direction: column; /* 縦並び */
-  align-items: center;     /* 中央揃え */
-  gap: 10px;  
-  margin-bottom: 0px;             /* 間隔 */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
 }
-
-/* ボタン画像の幅を統一 */
 .works-store-links img {
-  width:180px;   /* 好きな横幅に統一 */
-  height: auto;   /* アスペクト比維持で高さ自動調整 */
-  display: block; /* 余白対策 */
+  width: 180px;
+  height: auto;
+  display: block;
 }
 
-.home-link {
-  margin-top: 0px;
-}
-
+.home-link { margin-top: 0; text-align: center; }
 .home-link a {
-  display: inline-block;        /* ボタン化 */
-  font-size: 24px;              /* 文字サイズを大きく */
-  font-weight: bold;            /* 太字 */
-  padding: 12px 24px;           /* 余白で大きく見せる */
-  background-color: #333;       /* 背景色（黒） */
-  color: #fff;                  /* 文字色（白） */
-  border-radius: 6px;           /* 角丸 */
-  text-decoration: none;        /* 下線なし */
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 12px 24px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
   transition: background-color 0.3s ease;
 }
-
-.home-link a:hover {
-  background-color: #555;       /* ホバー時に少し明るく */
-}
+.home-link a:hover { background-color: #555; }
 
 /*--------------------------------
  Skill
@@ -313,7 +318,6 @@ img {
   content: ""; border-radius: 3px; background-color: #333;
 }
 .article-body p { font-size: 15px; line-height: 1.8; margin-bottom: 30px; }
-.home-link { text-align: center; }
 
 /*--------------------------------
  Media Queries
@@ -333,7 +337,6 @@ img {
   .header .container { padding: 15px; }
   .header-logo { font-size: 30px; margin-right: 15px; }
 
-  /* メインビジュアル */
   .mv { display: flex; align-items: center; justify-content: center; text-align: center; }
   .mv-container { padding: 20px; }
   .mv-title { font-size: 30px; }
@@ -345,48 +348,60 @@ img {
   .works-info { margin-top: 3px; }
   .works-list { justify-content: space-between; }
   .works-item { flex: 0 0 48%; margin-right: 0; margin-bottom: 30px; }
-  .works-store-links img { width: 150px;}
-  .store-links img { width: 120px;}
+
+  .works-store-links img { width: 150px; }
+  .store-links img { width: 120px; }
+
+  /* 下層 */
   .article { padding: 50px 0; }
   .article-body h3 { font-size: 16px; padding-left: .8em; }
   .article-body h3:not(:first-child) { margin-top: 30px; }
   .article-body p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
-
   .article-body img {
-  width: 200px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 1.8em; /* 段落の line-height(1.8) に揃えて“1行” */
-  } 
-
-  /* Skill */
-  .skill-list { display: block; margin-bottom: 0; }
-  .skill-item { width: 100%; margin-bottom: 35px; }
-  .skill-item:last-child { margin-bottom: 0; }
-  .skill-name { margin-bottom: 5px; }
-  .skill-text { font-size: 13px; line-height: 1.7; }
-
-  /* About */
-  .profile { display: block; }
-  .profile-img { width: 150px; margin: 0 auto 25px; }
-  .profile-body p { font-size: 14px; line-height: 1.7; }
-  .profile-body p:not(:last-child) { margin-bottom: 20px; }
-
-  /* フッター */
-  .footer { padding: 20px; }
-
-  /* メニューの当たり判定が閉じているときは無効に */
-  .gnav { pointer-events: none; z-index: 1001; }
-  .gnav.open { pointer-events: auto; }
-
-  /* 積層順序の整理（ハンバーガーが最前） */
-  .header { z-index: 100; }
-  .hamburger { z-index: 1002; }
-
-  .header .hamburger span {
-    background-color: #333 !important;
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 1.8em;
   }
+}
 
+/* ===== PCだけヘッダーを画面端まで寄せる ===== */
+@media screen and (min-width: 1024px) {
+  /* ヘッダー内の.containerをフル幅にし、左右余白を小さく */
+  .header > .container {
+    max-width: none;   /* 1340pxの上限を解除して画面いっぱいに */
+    width: 100%;
+    margin: 0;         /* 0 auto の中央寄せを解除 */
+    padding: 20px 20px;
+  }
+}
 
+/* 固定ヘッダー分のオフセット量（PC/スマホで切り替え） */
+:root { --header-offset: 73px; }              /* PC */
+@media (max-width: 767px) { :root { --header-offset: 57px; } } /* iPhone SE 等 */
+
+/* ブラウザのアンカー移動時に余白を確保（対応ブラウザ向け） */
+html {
+  scroll-behavior: smooth;                     /* 好みで。滑らかスクロール */
+  scroll-padding-top: var(--header-offset);    /* アンカー位置の上に余白 */
+}
+
+/* 念のため対象セクション側にも余白を指示（互換用） */
+#works, #contact, :target {
+  scroll-margin-top: var(--header-offset);
+}
+
+.home-link a {
+  font-size: 24px;     /* 文字サイズを少し小さく */
+  padding: 8px 16px;   /* ボタン内余白も調整 */
+}
+
+.works-store-links img {
+  width: 160px;   /* 好きな幅に変更（例: 140px） */
+  height: auto;   /* 縦横比は維持 */
+}
+
+@media screen and (max-width: 767px) {
+  .works-store-links img { width: 140px; }
+  .home-link a { font-size: 22px; padding: 6px 14px; }
 }
