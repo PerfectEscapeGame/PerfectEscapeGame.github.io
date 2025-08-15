@@ -358,7 +358,7 @@ img {
   .article-body h3:not(:first-child) { margin-top: 30px; }
   .article-body p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
   .article-body img {
-    width: 200px;
+    width: 150px;
     height: auto;
     display: block;
     margin: 0 auto 1.8em;
@@ -419,7 +419,6 @@ html {
   margin-top: calc(-1 * var(--header-offset));
 }
 
-/* お好みで、通常の同ページ内スクロールも滑らか＋余白確保 */
 html { scroll-padding-top: var(--header-offset); scroll-behavior: smooth; }
 
 .article-body ul {
