@@ -196,7 +196,7 @@ img {
 .works-item:nth-of-type(3n) { margin-right: 0; }
 .works-img img { border: 1px solid #e6e6e6; }
 
-.works-name { font-size: 20px; font-weight: bold; margin-top: 8px; }
+.works-name { font-size: 20px; font-weight: bold; margin-top: 8px; text-align: center;}
 .works-name a { color: #333; text-decoration: none; display: inline-block; }
 .works-name a:hover { text-decoration: underline; }
 
@@ -241,6 +241,14 @@ img {
   width: 180px;
   height: auto;
   display: block;
+}
+
+.works-thumb-link img {
+  width: 300px;  
+  height: 300px; 
+  object-fit: cover; /* はみ出した部分をトリミングして見栄えを統一 */
+  display: block;
+  margin: 0 auto;
 }
 
 .home-link { margin-top: 0; text-align: center; }
@@ -363,6 +371,13 @@ img {
     display: block;
     margin: 0 auto 1.8em;
   }
+
+  .works-thumb-link img {
+    width: 80%;        /* 画面幅の70%に縮小 */
+    height: auto;
+    margin: 0 auto;    /* 中央寄せ */
+    display: block;
+  }
 }
 
 /* ===== PCだけヘッダーを画面端まで寄せる ===== */
@@ -438,3 +453,4 @@ html { scroll-padding-top: var(--header-offset); scroll-behavior: smooth; }
   margin-top: 1em;    /* 横線の上に1行分の余白 */
   margin-bottom: 1em; /* 横線の下に1行分の余白 */
 }
+
