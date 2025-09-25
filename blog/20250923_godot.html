@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="BLOG">
+  <title>BLOG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <link href="../css/ress.css" rel="stylesheet">
+  <!-- キャッシュ更新のため ?v を付けています -->
+  <link href="../css/style.css?v=ham-fix" rel="stylesheet">
+  <link rel="shortcut icon" href="../img/icon.png" />
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- header -->
+    <header class="header">
+      <div class="container">
+        <h1 class="header-logo"><a href="../index.html">PEG</a></h1>
+
+        <!-- ハンバーガー（SVG版：spanは使いません） -->
+        <button class="hamburger" id="js-hamburger"
+                aria-controls="global-nav" aria-expanded="false" aria-label="メニューを開閉">
+          <svg class="hamburger-svg" width="28" height="22" viewBox="0 0 28 22" aria-hidden="true" focusable="false">
+            <rect x="0" y="1"  width="28" height="3" />
+            <rect x="0" y="9"  width="28" height="3" />
+            <rect x="0" y="17" width="28" height="3" />
+          </svg>
+        </button>
+
+        <nav class="gnav" id="global-nav">
+          <ul class="gnav-list">
+            <li class="gnav-item"><a href="../index.html#works">WORKS</a></li>
+            <li class="gnav-item"><a href="../index.html#contact">CONTACT</a></li>
+            <li class="gnav-item"><a href="../privacy.html">PRIVACY POLICY</a></li>
+            <li class="gnav-item"><a href="../support.html">SUPPORT PAGE</a></li>
+            <li class="gnav-item"><a href="../blog.html">BLOG</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- /header -->
+
+    <main class="content" itemscope itemtype="https://schema.org/BlogPosting">
+      <article class="article">
+        <div class="article-container">
+          <h2 class="title" itemprop="headline">Godot4のiOSアプリが特定の端末で起動直後にクラッシュする問題と解決策</h2>
+
+          <div class="article-body" itemprop="articleBody">
+            <p class="post-meta">
+              <time datetime="2025-09-23" itemprop="datePublished">2025-09-23</time>
+              <meta itemprop="dateModified" content="2025-09-23">
+            </p>
+
+            <h3>はじめに</h3>
+            <p>Godot4というゲームエンジンを使ってiOSアプリを開発していると、iPhone7やiPad第7世代などの特定の端末で起動直後にクラッシュするという現象が起こることがあります。
+              本記事では、その原因と解決方法を実際の経験をもとにまとめます。</p>
+
+            <h3>原因</h3>
+            <p>Godot4のデフォルトレンダラーは多くの場合Forward+で、これはVulkan/Metalベースのレンダリング方式です。
+            ただし、数年前に発売されたiPhone/iPad（A9, A10 GPU 世代）は、Forward+ が必要とする一部のGPU機能をサポートしていない可能性があります。
+            そのため、初期化に失敗 → 起動直後にクラッシュという症状が起きる場合があります。</p>
+
+            <h3>解決方法</h3>
+            <p>解決策は、<strong>gl_compatibility（OpenGL）</strong>レンダラーに切り替えることです。</p>
+
+            <h4>設定手順</h4>
+            <ol class="steps">
+              <li>Godotエディタで <strong>Project &gt; Project Settings</strong> を開く</li>
+              <li>検索バーで <strong>Rendering</strong> を探す</li>
+              <li><strong>rendering_method.mobile</strong>の値を <strong>gl_compatibility</strong> に変更 
+                ※ 私は念のため<strong>rendering_method</strong>, <strong>rendering_method.web</strong>も<strong>gl_compatibility</strong>に変更しました。</li>
+              <li>プロジェクトを再エクスポートして、Xcode から実機にインストール</li>
+            </ol>
+
+            <figure>
+              <img src="../img/blog_20250923.png" alt="スクリーンショット" itemprop="image">
+              <!-- <figcaption>タイトル画面（仮）</figcaption> -->
+            </figure>
+
+            <h3>まとめ</h3>
+            <p>Godot4を使ったiOSアプリで、特定の端末（iPhone7/iPad 第7世代など）では、Forward+ が必要とする GPU 機能を満たしていない可能性があり、その結果、初期化に失敗して起動直後にクラッシュする場合がある。</p>
+            <p><strong>rendering_method.mobile</strong>の値を<strong>gl_compatibility（OpenGL）</strong>に切り替えることで解決できることがある。</p>
+            <p>この情報が今後開発される方のご参考になれば幸いです。</p>
+
+          </div>
+
+          <!-- 前後ナビ -->
+          <nav class="post-nav" aria-label="Post navigation">
+            <a class="prev" href="20250920_open.html">← 前の記事：ブログ解説のお知らせ・自己紹介</a>
+            <!-- <a class="next" href="2025-09-10-bugfix.html">次の記事：不具合修正 →</a> -->
+          </nav>
+
+          <div class="home-link">
+            <a href="../blog.html">BLOG TOP</a>
+            <a href="../index.html">HOME</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="copyright">&copy; PEG</div>
+    </footer>
+  </div>
+
+  <!-- jQuery とスクリプト -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="../js/script.js?v=ham-fix"></script>
+</body>
+</html>

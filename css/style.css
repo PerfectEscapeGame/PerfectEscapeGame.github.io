@@ -182,6 +182,55 @@ img {
 }
 .mv-text { font-size: 16px; line-height: 1.8; }
 
+/* カルーセル基本 */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+.carousel-item {
+  display: none;
+  width: 100%;
+  animation: fade 1s;
+}
+.carousel-item.active {
+  display: block;
+}
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ナビボタン */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+.carousel-controls button {
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: background 0.3s;
+}
+.carousel-controls button:hover {
+  background: rgba(0,0,0,0.6);
+}
+
+@keyframes fade {
+  from { opacity: 0.4; }
+  to   { opacity: 1; }
+}
+
+
 /*--------------------------------
  Works
 ---------------------------------*/
@@ -252,8 +301,12 @@ img {
 }
 
 .home-link { margin-top: 0; text-align: center; }
+
+
 .home-link a {
-  display: inline-block;
+  display: block;          /* 強制的に縦並び */
+  width: fit-content;      /* テキスト幅に合わせる */
+  margin: 0.5rem auto;     /* 上下に余白＋中央寄せ */
   font-size: 24px;
   font-weight: bold;
   padding: 12px 24px;
@@ -325,7 +378,33 @@ img {
   position: absolute; top: 0; left: 0; width: 4px; height: 100%;
   content: ""; border-radius: 3px; background-color: #333;
 }
-.article-body p { font-size: 15px; line-height: 1.8; margin-bottom: 30px; }
+.article-body p { font-size: 15px; line-height: 1.8; margin-bottom: 15px; }
+
+/*--------------------------------
+BLOG
+---------------------------------*/
+
+.post-nav {
+  display: flex;
+  justify-content: center; /* 中央に配置 */
+  gap: 2rem;               /* 前後のリンクの間隔 */
+  margin-top: 2rem;
+}
+
+.post-nav a {
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.steps {
+  padding-left: 1.5em;   /* 数字と本文の余白 */
+  margin-left: 0;        /* 左余白をリセット */
+}
+.steps li {
+  margin-bottom: 0.5em;  /* 各行の間隔 */
+  line-height: 1.6;      /* 読みやすさ調整 */
+}
+
 
 /*--------------------------------
  Media Queries
@@ -364,7 +443,7 @@ img {
   .article { padding: 50px 0; }
   .article-body h3 { font-size: 16px; padding-left: .8em; }
   .article-body h3:not(:first-child) { margin-top: 30px; }
-  .article-body p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+  .article-body p { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
   .article-body img {
     width: 150px;
     height: auto;
